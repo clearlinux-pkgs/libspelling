@@ -1,5 +1,4 @@
-0.4.0
+0.4.3
 gi-docgen
 pkgconfig(enchant-2)
 pkgconfig(gtksourceview-5)
-pkgconfig(sysprof-capture-4)
