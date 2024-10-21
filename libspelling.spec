@@ -6,16 +6,17 @@
 # autospec commit: f35655a
 #
 Name     : libspelling
-Version  : 0.4.3
-Release  : 2
-URL      : https://gitlab.gnome.org/GNOME/libspelling/-/archive/0.4.3/libspelling-0.4.3.tar.gz
-Source0  : https://gitlab.gnome.org/GNOME/libspelling/-/archive/0.4.3/libspelling-0.4.3.tar.gz
+Version  : 0.4.4
+Release  : 3
+URL      : https://gitlab.gnome.org/GNOME/libspelling/-/archive/0.4.4/libspelling-0.4.4.tar.gz
+Source0  : https://gitlab.gnome.org/GNOME/libspelling/-/archive/0.4.4/libspelling-0.4.4.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: libspelling-data = %{version}-%{release}
 Requires: libspelling-lib = %{version}-%{release}
 Requires: libspelling-license = %{version}-%{release}
+Requires: libspelling-locales = %{version}-%{release}
 BuildRequires : buildreq-gnome
 BuildRequires : buildreq-meson
 BuildRequires : gi-docgen
@@ -77,16 +78,24 @@ Group: Default
 license components for the libspelling package.
 
 
+%package locales
+Summary: locales components for the libspelling package.
+Group: Default
+
+%description locales
+locales components for the libspelling package.
+
+
 %prep
-%setup -q -n libspelling-0.4.3
-cd %{_builddir}/libspelling-0.4.3
+%setup -q -n libspelling-0.4.4
+cd %{_builddir}/libspelling-0.4.4
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1729089203
+export SOURCE_DATE_EPOCH=1729542858
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -132,6 +141,7 @@ mkdir -p %{buildroot}/usr/share/package-licenses/libspelling
 cp %{_builddir}/libspelling-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libspelling/01a6b4bf79aca9b556822601186afab86e8c4fbf || :
 GOAMD64=v2
 DESTDIR=%{buildroot} ninja -C builddir install
+%find_lang libspelling
 
 %files
 %defattr(-,root,root,-)
@@ -274,3 +284,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/libspelling/01a6b4bf79aca9b556822601186afab86e8c4fbf
+
+%files locales -f libspelling.lang
+%defattr(-,root,root,-)
+
